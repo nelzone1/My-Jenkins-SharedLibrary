@@ -1,0 +1,17 @@
+// Function for SonarQube Analysis 
+
+def sonarQubeAnalysis(mavenHome) { 
+
+    stage("SonarQube Analysis") { 
+
+        echo 'Running SonarQube Analysis' 
+
+        withSonarQubeEnv('SonarQube-Immutable-Server', 'immutable-sonarQ') { 
+
+            sh "${mavenHome}/bin/mvn sonar:sonar -Dsonar.projectKey=portfolio -Dsonar.projectName=portfolio" 
+
+        } 
+
+    } 
+
+} 

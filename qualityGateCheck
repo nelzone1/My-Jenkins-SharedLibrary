@@ -1,0 +1,25 @@
+// Function for Quality Gate Check 
+
+def qualityGateCheck() { 
+
+    stage("Quality Gate") { 
+
+        timeout(time: 5, unit: 'MINUTES') { // Wait up to 5 minutes for SonarQube analysis results 
+
+            def qualityGate = waitForQualityGate() 
+
+            if (qualityGate.status != 'OK') { 
+
+                error "Pipeline aborted due to SonarQube quality gate failure: ${qualityGate.status}" 
+
+            } else { 
+
+                echo "Quality Gate passed!" 
+
+            } 
+
+        } 
+
+    } 
+
+} 
